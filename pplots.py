@@ -51,7 +51,8 @@ def plot_embedding(
         file_format=None,
         labels_name=None,
         width_ratios=[7, 1],
-        bbox=(1.3, 0.7)
+        bbox=(1.3, 0.7),
+        is_hyperbolic=False
     ):
     
     # create data structure suitable for embedding
@@ -75,7 +76,13 @@ def plot_embedding(
     if (col_dict is None) and not (labels is None):
         col_dict = get_colors(labels)
 
-    
+    if is_hyperbolic:
+        circle = plt.Circle((0, 0), radius=1,  fc='none', color='black')
+        plt.gca().add_patch(circle)
+        ax.plot(0, 0, 'x', c=(0, 0, 0), ms=2)
+        ax.axis('off')
+
+
     sns.scatterplot(
         x="dim1", 
         y="dim2", 
@@ -136,6 +143,7 @@ def plot_embedding(
         ax.axis('equal')
         ax.axis('square')
 
+    
     if title:
         ax.set_title(title, fontsize=fontsize, fontweight="bold")
 
@@ -197,7 +205,7 @@ def plot_similarity(
         vmin=-1, vmax=1,
         fmt=file_format
     )
-    
+
     sns_plot.ax_heatmap.xaxis.set_tick_params(labelsize=fontsize)
     sns_plot.ax_heatmap.yaxis.set_tick_params(labelsize=fontsize)
     sns_plot.ax_heatmap.axis('equal')
