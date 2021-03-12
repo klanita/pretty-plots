@@ -34,6 +34,7 @@ def save_to_file(fig, file_name, file_format):
 def plot_embedding(
         emb,
         labels=None,
+        labels_text=None,
         col_dict=None,
         title=None,
         show_lines=False,
@@ -129,14 +130,14 @@ def plot_embedding(
                     c=col_dict[labels[i]]
                 )
 
-    if show_text and (not (labels is None)):
+    if show_text and (not (labels_text is None)):
         texts = []
         for i in range(len(emb)):
             texts.append(
                 ax.text(
                     emb[i, 0], 
                     emb[i, 1], 
-                    labels[i], 
+                    labels_text[i], 
                     fontsize=fontsize
                 )
             )
