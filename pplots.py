@@ -52,6 +52,7 @@ def plot_embedding(
         labels_name=None,
         width_ratios=[7, 1],
         bbox=(1.3, 0.7),
+        plot_legend=False,
         is_hyperbolic=False
     ):
     
@@ -61,7 +62,10 @@ def plot_embedding(
         if labels_name is None:
             labels_name = 'labels'
         df[labels_name] = labels
-
+    else:
+        labels_name = 'labels'
+        df[labels_name] = 'na'
+    
     
     fig = plt.figure(figsize=(fig_width, fig_height))
     gs = gridspec.GridSpec(1, 2, width_ratios=width_ratios)
@@ -97,10 +101,14 @@ def plot_embedding(
         ax=ax)
     
     # I remove seaborn default legend so it won't clash with the rest of the plot
-    try:
-        ax.legend_.remove()
-    except:
-        pass
+    if plot_legend is False:
+        try:
+            ax.legend_.remove()
+        except:
+            pass
+    else:
+        plt.legend(numpoints=1, loc='center left',
+               bbox_to_anchor=bbox, fontsize=fontsize)
     
     if show_lines:
         for i in range(len(emb)):
@@ -121,7 +129,7 @@ def plot_embedding(
                     c=col_dict[labels[i]]
                 )
 
-    if show_text:
+    if show_text and (not (labels is None)):
         texts = []
         for i in range(len(emb)):
             texts.append(
