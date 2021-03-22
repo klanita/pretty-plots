@@ -35,6 +35,7 @@ def plot_embedding(
         emb,
         labels=None,
         labels_text=None,
+        labels_idx=None,
         col_dict=None,
         title=None,
         show_lines=False,
@@ -132,7 +133,9 @@ def plot_embedding(
 
     if show_text and (not (labels_text is None)):
         texts = []
-        for i in range(len(emb)):
+        if labels_idx is None:
+            labels_idx = list(range(len(labels_text)))
+        for i in labels_idx:
             texts.append(
                 ax.text(
                     emb[i, 0], 
