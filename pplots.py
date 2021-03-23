@@ -11,7 +11,7 @@ matplotlib.use('Agg')
 
 # default parameters for matlab
 FONT_SIZE = 7
-font = {'family': 'Arial', 'size': FONT_SIZE}
+font = {'size': FONT_SIZE}
 matplotlib.rc('font', **font)
 matplotlib.rc('ytick', labelsize=FONT_SIZE)
 matplotlib.rc('xtick', labelsize=FONT_SIZE)
